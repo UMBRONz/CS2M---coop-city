@@ -12,3 +12,9 @@ CS2M/Library
 *.sln.DotSettings.user
 *csproj.user
 *.drawio.bkp
+
+# Territories test/build output
+CS2M.Territories.Core/bin/
+CS2M.Territories.Core/obj/
+CS2M.Territories.Tests/bin/
+CS2M.Territories.Tests/obj/

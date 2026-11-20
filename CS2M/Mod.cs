@@ -69,6 +69,9 @@ namespace CS2M
             // Set up systems
             updateSystem.UpdateBefore<NetworkingSystem>(SystemUpdatePhase.PreSimulation);
             updateSystem.UpdateAt<UISystem>(SystemUpdatePhase.UIUpdate);
+            // Territories: block building outside your own land. Must run after the tool built its
+            // preview and after the game's own validation in the same frame (order to verify in game).
+            updateSystem.UpdateAt<CS2M.BaseGame.Territories.TerritoryBuildGuardSystem>(SystemUpdatePhase.ToolUpdate);
             Log.Info("Loading complete");
         }
 

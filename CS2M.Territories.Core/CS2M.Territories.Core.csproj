@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+        Pure game rules for the Territories co-op mode: map ownership, per-player treasury,
+        build permission checks. No reference to the game or Unity, so it builds and is unit
+        tested without Cities: Skylines II installed. The game layer (CS2M.BaseGame/Territories)
+        calls into it. netstandard2.0 loads fine in the game's Mono runtime.
+    -->
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>9</LangVersion>
+        <Nullable>disable</Nullable>
+        <RootNamespace>CS2M.Territories.Core</RootNamespace>
+    </PropertyGroup>
+
+</Project>

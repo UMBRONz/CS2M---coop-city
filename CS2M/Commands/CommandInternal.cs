@@ -30,6 +30,22 @@ namespace CS2M.Commands
         public CommandInternal()
         {
             Command.ConnectToCSM(SendToAll, SendToServer, SendToClients, GetCommandHandler);
+            Command.SendToPlayer = SendToPlayer;
+        }
+
+        /// <summary>
+        ///     Host only: send a command to the connected player with this id.
+        /// </summary>
+        public void SendToPlayer(int playerId, CommandBase command)
+        {
+            Player player = NetworkInterface.Instance.PlayerListConnected.FirstOrDefault(p => p.PlayerId == playerId);
+            if (player == null)
+            {
+                Log.Warn($"SendToPlayer: no connected player with id {playerId}");
+                return;
+            }
+
+            SendToClient(player, command);
         }
 
         /// <summary>

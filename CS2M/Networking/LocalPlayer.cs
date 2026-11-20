@@ -412,6 +412,7 @@ namespace CS2M.Networking
         public void PlayerTypeChanged(PlayerType oldPlayerType, PlayerType newPlayerType)
         {
             Log.Debug($"LocalPlayer: changed player type from {oldPlayerType} to {newPlayerType}");
+            Territories.TerritoriesBridge.OnLocalPlayerTypeChanged(this, newPlayerType);
         }
     }
 }

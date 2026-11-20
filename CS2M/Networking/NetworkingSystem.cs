@@ -11,6 +11,7 @@ namespace CS2M.Networking
         protected override void OnCreate()
         {
             base.OnCreate();
+            Territories.TerritoriesBridge.Init();
         }
 
         protected override void OnUpdate()

@@ -7,6 +7,9 @@ namespace CS2M.API.Commands
         public static Action<CommandBase> SendToAll, SendToServer, SendToClients;
         public static Func<Type, CommandHandler> GetCommandHandler;
 
+        /// <summary>Host only: send a command to one player, by PlayerId.</summary>
+        public static Action<int, CommandBase> SendToPlayer;
+
         public static MultiplayerRole CurrentRole { get; set; }
 
         public static void ConnectToCSM(Action<CommandBase> sendToAll, Action<CommandBase> sendToServer, Action<CommandBase> sendToClients, Func<Type, CommandHandler> getCommandHandler)

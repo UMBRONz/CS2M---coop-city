@@ -215,6 +215,12 @@ namespace CS2M.Networking
 
             //TODO: Check that only the relevant command could be sent in connected, not joined state
 
+            if (NetworkInterface.Instance.LocalPlayer.PlayerType == PlayerType.SERVER)
+            {
+                // Never trust the sender id a client writes into its own packet.
+                command.SenderId = peer.Id;
+            }
+
             handler.Parse(command);
         }
 

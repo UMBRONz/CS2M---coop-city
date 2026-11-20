@@ -78,6 +78,13 @@ namespace CS2M.UI
 
         private void SendMessage()
         {
+            // "/claim 4 17", "/money" ... are Territories commands, handled locally, not sent as chat.
+            if (CS2M.BaseGame.Territories.TerritorySession.TryHandleChat(LocalChatMessage.value))
+            {
+                LocalChatMessage.Update(string.Empty);
+                return;
+            }
+
             string username = GetCurrentUsername();
             if (string.IsNullOrEmpty(username))
             {

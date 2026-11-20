@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CS2M.API\CS2M.API.csproj" />
+      <ProjectReference Include="..\CS2M.Territories.Core\CS2M.Territories.Core.csproj" />
     </ItemGroup>
 
     <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.props"/>
@@ -25,6 +26,12 @@
         </Reference>
         <Reference Include="Unity.Entities">
           <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Unity.Entities.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Mathematics">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Colossal.Mathematics">
+            <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\UnityEngine.CoreModule.dll</HintPath>

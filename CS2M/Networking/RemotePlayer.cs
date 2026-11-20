@@ -10,6 +10,8 @@ namespace CS2M.Networking
         public RemotePlayer(NetPeer peer, string username, PlayerType playerType) : base()
         {
             NetPeer = peer;
+            // Unique per connection on the host (LiteNetLib peer ids are >= 0; the host itself is -1).
+            PlayerId = peer.Id;
             Username = username;
             PlayerType = playerType;
             PlayerStatusChangedEvent += PlayerStatusChanged;
