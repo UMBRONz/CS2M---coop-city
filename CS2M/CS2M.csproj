@@ -5,6 +5,9 @@
         <TargetFramework>net472</TargetFramework>
         <Configurations>Debug;Release</Configurations>
 
+        <!--Switches off the ILRepack package's automatic Release merge (we merge in our own ILRepacker target)-->
+        <ILRepackTargetsFile>$(MSBuildThisFileDirectory)..\build\ILRepack.none.targets</ILRepackTargetsFile>
+
         <!--The file where mod information which is required for publishing mod on PDX mods are stored-->
         <PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -128,8 +131,10 @@
     <!-- ILRepack -->
     <Target Name="ILRepacker" AfterTargets="Build">
         <ItemGroup>
-            <InputAssemblies Include="$(OutputPath)\CS2M.dll"/>
-            <InputAssemblies Include="@(PackAssemblies)"/>
+            <!-- The unmerged compiler output in obj/, so a rebuild never re-merges an already merged bin/CS2M.dll. -->
+            <InputAssemblies Include="@(IntermediateAssembly->'%(FullPath)')"/>
+            <!-- Some packages ship no DLL for net472 (in-box there), so pack only what exists. -->
+            <InputAssemblies Include="@(PackAssemblies)" Condition="Exists('%(PackAssemblies.FullPath)')"/>
         </ItemGroup>
 
         <ILRepack Parallel="true" Internalize="true" InputAssemblies="@(InputAssemblies)" LibraryPath="$(AssemblySearchPaths)" TargetKind="Dll" OutputFile="$(OutputPath)\$(AssemblyName).dll"/>

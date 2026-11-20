@@ -1,0 +1,3 @@
+<Project>
+  <!-- Exists only to switch off the ILRepack package's automatic Release merge; CS2M.csproj has its own ILRepacker target. -->
+</Project>

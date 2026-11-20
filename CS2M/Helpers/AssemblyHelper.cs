@@ -10,7 +10,8 @@ namespace CS2M.Helpers
     {
         private static IEnumerable<Assembly> GetEnabledAssemblies()
         {
-            return GameManager.instance.modManager.Where(info => info.asset.isEnabled)
+            // ExecutableAsset.isEnabled was removed in a game update; ModInfo.isLoaded is the equivalent.
+            return GameManager.instance.modManager.Where(info => info.isLoaded && info.asset?.assembly != null)
                 .Select(info => info.asset.assembly).ToList();
         }
 
