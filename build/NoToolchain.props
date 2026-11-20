@@ -1,0 +1,18 @@
+<Project>
+  <!--
+    Used when the official CS2 modding toolchain is not installed (CSII_TOOLPATH unset).
+    References the game's own DLLs straight from the install and deploys to the game's local Mods
+    folder, which the game loads on start. The install is found via Steam's uninstall registry
+    entry; override with the CS2GameDir environment variable.
+  -->
+  <PropertyGroup>
+    <CS2GameDir Condition="'$(CS2GameDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 949230', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</CS2GameDir>
+    <CS2ManagedDir>$(CS2GameDir)\Cities2_Data\Managed</CS2ManagedDir>
+    <CSII_USERDATAPATH Condition="'$(CSII_USERDATAPATH)' == ''">$(USERPROFILE)\AppData\LocalLow\Colossal Order\Cities Skylines II</CSII_USERDATAPATH>
+    <AssemblySearchPaths>$(CS2ManagedDir);$(AssemblySearchPaths)</AssemblySearchPaths>
+    <DeployDir>$(CSII_USERDATAPATH)\Mods\$(MSBuildProjectName)</DeployDir>
+    <NeedBuild>true</NeedBuild>
+    <!-- The game DLLs target Unity's netstandard 2.1; they load fine in the game's Mono. -->
+    <NoWarn>$(NoWarn);MSB3270;MSB3277;MSB3268</NoWarn>
+  </PropertyGroup>
+</Project>

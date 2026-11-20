@@ -45,6 +45,9 @@ namespace CS2M
             Instance = this;
             Log.Info($"Loading {Name} version {Assembly.GetExecutingAssembly().GetName().Version}");
 
+            // Translations from lang/*.json (replaces the I18N Everywhere dependency).
+            Util.LangLoader.Load(this);
+
             // Register mod settings to game options UI.
             Log.Info("Loading Mod Settings");
             Settings = new ModSettings(this);

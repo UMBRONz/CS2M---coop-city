@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -9,32 +10,18 @@
       <ProjectReference Include="..\CS2M.Territories.Core\CS2M.Territories.Core.csproj" />
     </ItemGroup>
 
-    <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.props"/>
+    <Import Condition="'$(CSII_TOOLPATH)' != ''" Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.props"/>
+    <Import Condition="'$(CSII_TOOLPATH)' == ''" Project="..\build\NoToolchain.props"/>
 
+    <!-- Game assemblies: resolved from the game install, never copied into the mod folder. -->
     <ItemGroup>
-        <Reference Include="Colossal.Core">
-          <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Colossal.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="Colossal.Logging">
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Game">
-          <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Game.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.Collections">
-          <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Unity.Collections.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.Entities">
-          <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Unity.Entities.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.Mathematics">
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Colossal.Mathematics">
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\..\games\steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
+        <Reference Include="Colossal.Core"><Private>false</Private></Reference>
+        <Reference Include="Colossal.Logging"><Private>false</Private></Reference>
+        <Reference Include="Colossal.Mathematics"><Private>false</Private></Reference>
+        <Reference Include="Game"><Private>false</Private></Reference>
+        <Reference Include="Unity.Collections"><Private>false</Private></Reference>
+        <Reference Include="Unity.Entities"><Private>false</Private></Reference>
+        <Reference Include="Unity.Mathematics"><Private>false</Private></Reference>
+        <Reference Include="UnityEngine.CoreModule"><Private>false</Private></Reference>
     </ItemGroup>
 </Project>

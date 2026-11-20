@@ -12,8 +12,9 @@
     </PropertyGroup>
 
     <!--Imports must be after PropertyGroup block-->
-    <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.props"/>
-    <Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.targets"/>
+    <Import Condition="'$(CSII_TOOLPATH)' != ''" Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.props"/>
+    <Import Condition="'$(CSII_TOOLPATH)' == ''" Project="..\build\NoToolchain.props"/>
+    <Import Condition="'$(CSII_TOOLPATH)' != ''" Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.Process'))\Mod.targets"/>
 
     <ItemGroup>
         <Reference Include="Colossal.UI.Binding">
@@ -144,7 +145,8 @@
     </Target>
 
     <Target Name="BuildUI" AfterTargets="ILRepacker">
-        <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/../CS2M.UI"/>
+        <Exec Condition="!Exists('$(ProjectDir)/../CS2M.UI/node_modules')" Command="npm ci" WorkingDirectory="$(ProjectDir)/../CS2M.UI"/>
+        <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/../CS2M.UI" EnvironmentVariables="CSII_USERDATAPATH=$(CSII_USERDATAPATH)"/>
     </Target>
 
 </Project>
