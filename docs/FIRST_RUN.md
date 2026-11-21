@@ -9,16 +9,29 @@
 dotnet build CS2M/CS2M.csproj -c Release
 ```
 
-Мод появится в `%USERPROFILE%\AppData\LocalLow\Colossal Order\Cities Skylines II\Mods\CS2M`.
-Другу достаточно скопировать эту папку туда же.
+Мод появится в `%USERPROFILE%\AppData\LocalLow\Colossal Order\Cities Skylines II\.cache\Mods\local\CS2M`.
+
+## Установка (у хоста и у друга одинаково)
+
+Проверено на игре 1.6.4f1. Старая папка `...\Cities Skylines II\Mods` и вики про неё устарели:
+игра 1.6 грузит моды с кодом только через игровые наборы (плейсеты) Paradox.
+
+1. Папку `CS2M` положить в `%USERPROFILE%\AppData\LocalLow\Colossal Order\Cities Skylines II\.cache\Mods\local\`
+   (архив `dist/CS2M-coop.zip` распаковать туда).
+2. В игре: «Модификации Paradox» → «Плейсеты» → создать набор (лучше только с CS2M) → сделать активным.
+3. «Библиотека» → у CS2M «Добавить в активный плейсет». Размер «0 bytes» в списке — не ошибка.
+4. Перезапустить игру через «Выход» в меню (не убивать процесс — иначе лаунчер считает, что
+   игровые наборы заняты, и не даёт запустить игру).
+5. **Пока в библиотеке что-то скачивается, моды не грузятся**: после входа в аккаунт игра сначала
+   синхронизирует и докачивает все моды библиотеки и только потом грузит набор. Убрать большие
+   загрузки из библиотеки или выйти из аккаунта Paradox.
 
 ## Проверка 1: игра видит мод
 
-1. Запустить игру. В списке модов (Paradox Mods → Local) должен быть CS2M.
-2. В главном меню должна появиться кнопка **Multiplayer**.
-3. Если кнопки нет или игра падает, нужны логи из
-   `%USERPROFILE%\AppData\LocalLow\Colossal Order\Cities Skylines II\Logs\`:
-   `CS2M.log`, `Modding.log`, `Player.log`.
+1. В главном меню должна появиться кнопка **Multiplayer**.
+2. Если её нет — логи из `%USERPROFILE%\AppData\LocalLow\Colossal Order\Cities Skylines II\Logs\`:
+   `CS2M.log`, `Modding.log` (там должны быть `Active Playset`, `Enabled Mods: CS2M` и `Loaded CS2M`),
+   `PdxSdk.log`. Подробные логи: параметр запуска Steam `-logsEffectiveness=Verbose`.
 
 ## Проверка 2: хост и подключение (на одном ПК не выйдет, нужен второй)
 
