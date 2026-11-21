@@ -151,7 +151,7 @@
 
     <Target Name="BuildUI" AfterTargets="ILRepacker">
         <Exec Condition="!Exists('$(ProjectDir)/../CS2M.UI/node_modules')" Command="npm ci" WorkingDirectory="$(ProjectDir)/../CS2M.UI"/>
-        <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/../CS2M.UI" EnvironmentVariables="CSII_USERDATAPATH=$(CSII_USERDATAPATH)"/>
+        <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/../CS2M.UI" EnvironmentVariables="CSII_USERDATAPATH=$(CSII_USERDATAPATH);CSII_LOCALMODSPATH=$(CSII_LOCALMODSPATH)"/>
     </Target>
 
 </Project>
